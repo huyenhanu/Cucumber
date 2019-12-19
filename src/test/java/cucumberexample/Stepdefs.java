@@ -34,53 +34,20 @@ public class Stepdefs {
     public void the_login_page_is_showed() throws Throwable {
         //Su dung driver de thuc hien cac task nhu yeu cau
         Login.openWebPage();
-        Login.ClickLoginFB();
+        Login.ClickLogin();
     }
 
-    @When("^the user provides his credential with emplty \"([^\"]*)\" or \"([^\"]*)\" then try to login$")
-    public void the_user_provides_his_credential_with_emplty_something_or_something_then_try_to_login(String email,String pass) throws Throwable {
-        //THuwcj hien nhap cac thong tin de dang nhap
-        Login.switchFB(email,pass);
+    @When("^the user provides his credential with emplty Email or Phone and password then try to login$")
+    public void the_user_provides_his_credential_with_emplty_email_or_phone_and_password_then_try_to_login() throws Throwable {
+       Login.Login("","");
     }
 
-    @Then("^the message \"([^\"]*)\" will be showed$")
-    public void the_message_something_will_be_showed(String mess) throws Throwable {
-        Login.SeeMessage(mess);
-    }
-
-   /* @When("^the user provides his credential with emplty Password then try to login$")
-    public void the_user_provides_his_credential_with_emplty_password_then_try_to_login() throws Throwable {
-
-    }
-
-    @When("^the user provides his credential with  incorrect format Email or Phone then try to login$")
-    public void the_user_provides_his_credential_with_incorrect_format_emailphone_then_try_to_login() throws Throwable {
-
-    }
-
-    @When("^the user provides his credential with invalid Email or Phone then try to login$")
-    public void the_user_provides_his_credential_with_invalid_emailphone_then_try_to_login() throws Throwable {
-
-    }
-
-    @When("^the user provides his credential with invalid Password then try to login$")
-    public void the_user_provides_his_credential_with_invalid_password_then_try_to_login() throws Throwable {
-
-    }
-
-    @When("^the user provides his credential then try to login$")
-    public void the_user_provides_his_credential_then_try_to_login() throws Throwable {
-
-    }*/
-
-
-    /*@Then("^the message \"([^\"]*)\" and \"([^\"]*)\" will be showed$")
+    @Then("^the message \"([^\"]*)\" and \"([^\"]*)\" will be showed$")
     public void the_message_something_and_something_will_be_showed(String strArg1, String strArg2) throws Throwable {
-
+       Login.SeeMessage("Chưa nhập email/số điện thoại","Chưa nhập mật khẩu");
     }
 
-    @Then("^the daskboard will be showed$")
-    public void the_daskboard_will_be_showed() throws Throwable {
 
-    }*/
+
+
 }

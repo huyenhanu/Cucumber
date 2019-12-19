@@ -15,11 +15,18 @@ import java.util.concurrent.TimeUnit;
 public class LoginForm {
     WebDriver driver;
     By menuLogin = By.cssSelector("div.cx-account-control div.account__header");
-    By btnFB = By.cssSelector("div.cx-social-login button.cx-btn-facebook");
+    By btn = By.cssSelector("div.txt-color-67 a.cx-btn");
+    By email = By.cssSelector("input#userId");
+    By pass = By.cssSelector("input#password");
+    By login = By.cssSelector("button[type=\"submit\"]");
+    By errEmail = By.cssSelector("div.msg-error div.ng-star-inserted");
+    By errPass = By.cssSelector("div.msg-error span");
+
+    /*By btnFB = By.cssSelector("div.cx-social-login button.cx-btn-facebook");
     By fEmail = By.cssSelector("input#email");
     By fPass = By.cssSelector("input#pass");
     By fLogin = By.cssSelector("div#buttons input");
-    By ErrMess = By.cssSelector("div.login_error_box div.fwb");
+    By ErrMess = By.cssSelector("div.login_error_box div.fwb");*/
 
     public LoginForm(WebDriver driver){
         this.driver = driver;
@@ -27,7 +34,6 @@ public class LoginForm {
     private void insertText(By cssEditor, String text) {
         this.driver.findElement(cssEditor).sendKeys(text);
     }
-
     private void click(By cssEditor) {
         this.driver.findElement(cssEditor).click();
     }
@@ -35,41 +41,29 @@ public class LoginForm {
         Actions action = new Actions(driver);
         action.moveToElement(element).perform();
     }
+
     public void openWebPage(){
         this.driver.get("https://www.adayroi.com/");
         this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
-    public void ClickLoginFB(){
+
+    public void ClickLogin(){
         WebDriverWait waiter = new WebDriverWait(this.driver, 10);
         Hover(this.driver,this.driver.findElement(menuLogin));
-        WebElement monthElement = waiter.until(ExpectedConditions.presenceOfElementLocated(btnFB));
+        WebElement monthElement = waiter.until(ExpectedConditions.presenceOfElementLocated(btn));
         monthElement.click();
     }
-    public void switchFB(String email, String pass) throws InterruptedException {
-        String MainWindow = driver.getWindowHandle();
-        Set s1 = driver.getWindowHandles();
-        Iterator<String> i1 = s1.iterator();
-        while(i1.hasNext())
-        {
-            String ChildWindow=i1.next();
 
-            if(!MainWindow.equalsIgnoreCase(ChildWindow))
-            {
-                // Switching to Child window
-                driver.switchTo().window(ChildWindow);
-                insertText(fEmail,email);
-                insertText(fPass,pass);
-                Thread.sleep(2000);
-                click(fLogin);
-            }
-        }
-        // Switching to Parent window i.e Main Window.
-        driver.switchTo().window(MainWindow);
+    public void Login(String txtEmail, String txtPass){
+        insertText(email, txtEmail);
+        insertText(pass, txtPass);
+        click(login);
     }
 
-    public void SeeMessage(String mess){
+    public void SeeMessage(String erEmail, String erPass){
         WebDriverWait wait = new WebDriverWait(this.driver, 10);
-        WebElement notify = wait.until(ExpectedConditions.presenceOfElementLocated(ErrMess));
-        Assert.assertEquals(mess,this.driver.findElement(ErrMess).getText());
+       // WebElement notify = wait.until(ExpectedConditions.presenceOfElementLocated(errEmail));
+        Assert.assertEquals(erEmail ,this.driver.findElement(errEmail).getText());
+        Assert.assertEquals(erPass ,this.driver.findElement(errPass).getText());
     }
 }
